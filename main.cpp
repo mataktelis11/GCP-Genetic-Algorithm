@@ -8,6 +8,10 @@
 
 using namespace std;
 
+
+// will get rid of all these 'random' stuff...
+
+
 // A utility function to swap to integers
 void swap (int *a, int *b)
 {
@@ -26,7 +30,7 @@ void printArray (int arr[], int n)
  
 // A function to generate a random
 // permutation of arr[]
-void randomize (int arr[], int n)
+void suffle (int arr[], int n)
 {
  
     // Start from the last element and swap
@@ -358,11 +362,6 @@ int main()
 
     //cout<<"Number of valid edges: " << g.countValidEdges(P) << endl;
 
-
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
-    int n = 8;
-    randomize (arr, n);
-    printArray(arr, n);
 
 
     return 0;
