@@ -9,48 +9,33 @@
 using namespace std;
 
 
-// will get rid of all these 'random' stuff...
 
+void random_draw(int choices[], int draw_size, int size){
 
-// A utility function to swap to integers
-void swap (int *a, int *b)
-{
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
- 
-// A utility function to print an array
-void printArray (int arr[], int n)
-{
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << "\n";
-}
- 
-// A function to generate a random
-// permutation of arr[]
-void suffle (int arr[], int n)
-{
- 
-    // Start from the last element and swap
-    // one by one. We don't need to run for
-    // the first element that's why i > 0
-    for (int i = n - 1; i > 0; i--)
-    {
-        // Pick a random index from 0 to i
-        int j = rand() % (i + 1);
- 
-        // Swap arr[i] with the element
-        // at random index
-        swap(&arr[i], &arr[j]);
+    int draw_number;
+
+    for (int i = 0; i < draw_size; i++){
+
+        do{
+            choices[i] = rand() % size;
+
+            for (int j = 0; j < i; j++){
+
+                if(choices[i] == choices[j]){
+                    choices[i] = -1;
+                    break;
+                }
+            }
+        }while(choices[i]==-1);
     }
 }
 
 
+
+
+// m is the size of scores
 int roulette(int scores[], int m){
 
-    
     int sum = 0;
 
     for (int i = 0; i < m ; i++){
@@ -74,8 +59,27 @@ int roulette(int scores[], int m){
         }
 
     }
-
     return -1;
+}
+
+
+void random_draw_with_roulette(int choices[], int draw_size, int size, int scores[], int m){
+    int draw_number;
+
+    for (int i = 0; i < draw_size; i++){
+
+        do{
+            choices[i] = roulette(scores, m);
+
+            for (int j = 0; j < i; j++){
+
+                if(choices[i] == choices[j]){
+                    choices[i] = -1;
+                    break;
+                }
+            }
+        }while(choices[i]==-1);
+    }
 }
 
 int main()
@@ -141,12 +145,22 @@ int main()
     cout << "Edges are " << edges << endl;
 
 
-    int population_size = 50;
+    int population_size = 80;
 
+    //int limit = 100000;
+    //int limit = 4000;
+    int limit = 2;
+
+    // mutation percentage
+    float mutation_per = 0.1;
+
+    float renew_per = 0.3;
+
+    // initial population
     int P[population_size][size+1];
-
+    // scores of population    
     int scores[population_size];
-
+    // new population
     int Ps[population_size][size+1];
 
     int parent1;
@@ -154,9 +168,23 @@ int main()
 
     int index;
 
-    //int limit = 100000;
-    int limit =4000;
-    float mutation_per = 0.1;
+
+
+    cout << (1-renew_per)*population_size<<endl;
+
+    cout << (renew_per)*population_size/2<<endl;
+
+
+    float population_keep_f = (1-renew_per)*population_size;
+    float population_pair_f = (renew_per * population_size) / 2;
+
+    int population_keep = (1-renew_per)*population_size;
+    int population_pair = (renew_per * population_size) / 2;
+
+    if(population_keep_f == (int)population_keep_f && population_pair_f == (int)population_pair_f)
+        cout<<"ok"<<endl;
+    else
+        return -1;
 
 
     for (int i = 0; i < population_size ; i++){
@@ -216,6 +244,14 @@ int main()
 
         if(end==1) break;
 
+
+
+
+
+
+
+        // pairing
+
         index = 0;
 
 
@@ -255,14 +291,16 @@ int main()
         }
 
 
-        // mutate
+        // mutation
 
         int mutation_size = round(population_size * mutation_per);
         int mutation_indexes[mutation_size];
 
-        for (int m=0;m<mutation_size;m++){
-            mutation_indexes[m] = m;
-        }
+        // for (int m=0;m<mutation_size;m++){
+        //     mutation_indexes[m] = m;
+        // }
+
+        random_draw(mutation_indexes,mutation_size,population_size);
 
 
         for (int m=0;m<mutation_size;m++){
@@ -315,7 +353,7 @@ int main()
     if(end==0){
         cout << "Algorithm exeded the maximum number of iterations and solution was NOT found" << endl;
         cout << "Aborting . . ." << endl;
-        return -1;
+        //return -1;
     }
 
 
@@ -362,6 +400,25 @@ int main()
 
     //cout<<"Number of valid edges: " << g.countValidEdges(P) << endl;
 
+
+
+        // renew test
+
+        int renew_size = 10;
+        int renew_indexes[renew_size];
+
+
+        random_draw_with_roulette(renew_indexes,renew_size,population_size, scores, population_size);
+
+        for (int m=0;m<renew_size;m++){
+            cout << renew_indexes[m]<< " ";
+        }
+        cout<<endl;
+
+        for (int m=0;m<renew_size;m++){
+            cout << scores[renew_indexes[m]]<< " ";
+        }
+        cout<<endl;
 
 
     return 0;
