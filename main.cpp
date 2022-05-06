@@ -210,7 +210,7 @@ int main()
 
         cout << i << " : ";
         // print the color sequence
-        g.printColors(P[i]);
+        printColors(P[i],size);
         cout<<"Number of valid edges: " << scores[i] << endl;
     }
 
@@ -227,7 +227,7 @@ int main()
                 end = 1;
                 cout << "Solution found on iteration k =" << k <<endl;
                 cout << "Solution is: ";
-                g.printColors(P[i]);
+                printColors(P[i],size);
                 cout << endl;
 
                 string solution = "P='";
@@ -315,7 +315,7 @@ int main()
 
             cout << i << " : ";
             // print the color sequence
-            g.printColors(Ps[i]);
+            printColors(Ps[i],size);
             cout<<"Number of valid edges: " << scores[i] << endl;
         }
 
@@ -362,7 +362,7 @@ int main()
 
             cout << i << " : ";
             // print the color sequence
-            g.printColors(Ps[i]);
+            printColors(Ps[i],size);
             cout<<"Number of valid edges: " << scores[i] << endl;
         }
 

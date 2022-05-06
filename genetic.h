@@ -18,3 +18,11 @@ void do_crossover_single_point(int parent1[], int parent2[], int child1[], int c
     }
 
 }
+
+
+void printColors(int Vcolors[],int size){
+    for (int i = 1; i <= size ; i++){
+        cout << Vcolors[i] << " ";
+    }
+    //printf("\n");
+}

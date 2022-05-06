@@ -16,17 +16,12 @@ class Graph
         adj = new vector<int>[size+1];
     }
 
+
     void addEdge(int u, int v){
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
 
-    void printColors(int Vcolors[]){
-        for (int i = 1; i <= size ; i++){
-            cout << Vcolors[i] << " ";
-        }
-        //printf("\n");
-    }
 
     void printGraph(){
         for (int v = 1; v <= size ; v++){
@@ -40,19 +35,6 @@ class Graph
         }
     }
 
-    bool checkColors(int Vcolors[]){
-
-        for (int i = 1; i <= size ; i++){
-
-            for (int x : adj[i]){
-                if(Vcolors[x]==Vcolors[i]){
-                    cout<<x<<" "<<i<<endl;
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     int countValidEdges(int Vcolors[]){
         int sum = 0;
