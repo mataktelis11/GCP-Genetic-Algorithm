@@ -330,7 +330,7 @@ int run(Graph g) {
                 new_color = rand() % 4;
             }
 
-            // will remove this
+            // will remove this (just for testing)
             if(Ps[mutation_indexes[m]][position] == new_color)
                 return 34;
 
