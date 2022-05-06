@@ -1,23 +1,17 @@
-# Importing the pillow library's
-# desired modules
-
-
-'''
-kitrino:0 (255,255,0)
-kokkino:1 (255,0,0)
-prasino:2 (0,128,0)
-ble:3 (0,0,255)
-
-
-0 3 2 3 1 0 3 1 0 2 1 3 2 2 1 2 Number of valid edges: 42
-
-Solution found on iteration k=95679
-'''
-
-
 from PIL import Image, ImageDraw
 import os
 
+'''
+COLOR       code    rgb value
+
+yellow:      0     (255,255,0)
+red:         1     (255,0,0)
+green:       2     (0,128,0)
+bleu:        3     (0,0,255)
+
+'''
+
+# points for filling
 coors ='''196,23
 114,89
 333,74
@@ -35,22 +29,11 @@ coors ='''196,23
 312,364
 380,432'''
 
-
 arg = os.getenv('P')
-    
-#arg = '''2 0 3 0 1 2 0 2 3 2 3 0 1 1 3 1'''
-
-#arg = '''0 3 1 2 2 0 3 2 1 0 1 2 3 0 1 2'''
-
 
 args = arg.split(" ")
 
-# Opening the image (R prefixed to
-# string in order to deal with '\'
-# in paths)
 img = Image.open(R"map.png")
-
-
 
 for i,l in enumerate(coors.split("\n")):
     #print(l)
@@ -67,10 +50,8 @@ for i,l in enumerate(coors.split("\n")):
     elif(args[i]=="3"):
         rep_value = (0, 0, 255)
 
+    # run the floodfill function (similar to 'bucket fill' of gimp/photoshop)
     ImageDraw.floodfill(img, seed, rep_value, thresh=50)
 
-
-
-# Displaying the image
+# show the image with the user's default Image Viewer
 img.show()
-

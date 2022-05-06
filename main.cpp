@@ -9,7 +9,10 @@
 using namespace std;
 
 
+/*
 
+
+*/
 void random_draw(int choices[], int draw_size, int size){
 
     int draw_number;
@@ -32,8 +35,10 @@ void random_draw(int choices[], int draw_size, int size){
 
 
 
+/*
+ m is the size of scores
 
-// m is the size of scores
+*/
 int roulette(int scores[], int m){
 
     int sum = 0;
@@ -62,14 +67,17 @@ int roulette(int scores[], int m){
     return -1;
 }
 
+/*
 
-void random_draw_with_roulette(int choices[], int draw_size, int size, int scores[], int m){
+
+*/
+void random_draw_with_roulette(int choices[], int draw_size, int size, int scores[]){
     int draw_number;
 
     for (int i = 0; i < draw_size; i++){
 
         do{
-            choices[i] = roulette(scores, m);
+            choices[i] = roulette(scores, size);
 
             for (int j = 0; j < i; j++){
 
@@ -145,11 +153,11 @@ int main()
     cout << "Edges are " << edges << endl;
 
 
-    int population_size = 80;
+    int population_size = 60;
 
     //int limit = 100000;
-    //int limit = 4000;
-    int limit = 2;
+    int limit = 4000;
+    //int limit = 2;
 
     // mutation percentage
     float mutation_per = 0.1;
@@ -163,17 +171,16 @@ int main()
     // new population
     int Ps[population_size][size+1];
 
+    // helping variables
     int parent1;
     int parent2;
 
     int index;
 
 
-
+    // check for renew percentage
     cout << (1-renew_per)*population_size<<endl;
-
     cout << (renew_per)*population_size/2<<endl;
-
 
     float population_keep_f = (1-renew_per)*population_size;
     float population_pair_f = (renew_per * population_size) / 2;
@@ -186,7 +193,7 @@ int main()
     else
         return -1;
 
-
+    // initialize a random population
     for (int i = 0; i < population_size ; i++){
 
         // first is dummy
@@ -209,7 +216,7 @@ int main()
 
     int end = 0;
 
-
+    // main loop
     for(int k = 0; k < limit; k++){
 
 
@@ -244,18 +251,37 @@ int main()
 
         if(end==1) break;
 
+        //population_keep
 
+        int renew_size = population_keep;
+        int renew_indexes[renew_size];
 
+        random_draw_with_roulette(renew_indexes,renew_size,population_size, scores);
+
+        cout << "renew indexes: ";
+        for (int m=0;m<renew_size;m++){
+            cout << renew_indexes[m]<< " ";
+        }
+        cout<<endl;
+
+        // pass parents to Ps
+        for (int i = 0; i < renew_size; i++){
+
+            for (int j = 0; j < size+1; j++){
+                
+                Ps[i][j] = P[renew_indexes[i]][j];
+            }
+        }
 
 
 
 
         // pairing
 
-        index = 0;
+        index = population_keep;
 
 
-        for (int i = 0; i < population_size/2; i++){
+        for (int i = 0; i < population_pair; i++){
 
             parent1 = roulette(scores,population_size);
             parent2 = roulette(scores,population_size);
@@ -266,12 +292,15 @@ int main()
             }
 
             cout << "Pairing members " << parent1 << " " << parent2 << endl;
+            cout<<index<<endl;
+            cout<<index+1<<endl;
 
             do_crossover_single_point(P[parent1],P[parent2],Ps[index],Ps[index+1],size);
 
             index += 2;
 
         }
+        
 
 
         cout << "New population:"<<endl;
@@ -325,9 +354,7 @@ int main()
 
         cout << "New population after mutation:"<<endl;
 
-
         for (int i = 0; i < population_size ; i++){
-
 
             // calculate "scores"
             scores[i] = g.countValidEdges(Ps[i]);
@@ -339,7 +366,7 @@ int main()
             cout<<"Number of valid edges: " << scores[i] << endl;
         }
 
-        // copy population
+        // copy population from Ps to P
         for (int i = 0; i < population_size; i++){
 
             for (int j = 0; j < size+1; j++){
@@ -404,21 +431,21 @@ int main()
 
         // renew test
 
-        int renew_size = 10;
-        int renew_indexes[renew_size];
+        // int renew_size = 10;
+        // int renew_indexes[renew_size];
 
 
-        random_draw_with_roulette(renew_indexes,renew_size,population_size, scores, population_size);
+        // random_draw_with_roulette(renew_indexes,renew_size,population_size, scores);
 
-        for (int m=0;m<renew_size;m++){
-            cout << renew_indexes[m]<< " ";
-        }
-        cout<<endl;
+        // for (int m=0;m<renew_size;m++){
+        //     cout << renew_indexes[m]<< " ";
+        // }
+        // cout<<endl;
 
-        for (int m=0;m<renew_size;m++){
-            cout << scores[renew_indexes[m]]<< " ";
-        }
-        cout<<endl;
+        // for (int m=0;m<renew_size;m++){
+        //     cout << scores[renew_indexes[m]]<< " ";
+        // }
+        // cout<<endl;
 
 
     return 0;
