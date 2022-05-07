@@ -1,6 +1,6 @@
 #include <iostream>
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
+#include <stdlib.h>
+#include <time.h>
 #include <math.h>
 #include <string>
 
@@ -123,11 +123,12 @@ void random_draw_with_roulette(int choices[], int draw_size, int size, int score
     }
 }
 
+
 /*
 
 
 */
-int run(Graph g) {
+bool run(Graph g, int population_size, int limit, float mutation_per, float renew_per, int solution[]) {
 
     // initialize random seed
     srand (time(NULL));
@@ -143,18 +144,6 @@ int run(Graph g) {
 
     cout << "Edges are " << edges << endl;
 
-
-    int population_size = 60;
-
-    //int limit = 100000;
-    int limit = 4000;
-    //int limit = 2;
-
-    // mutation percentage
-    float mutation_per = 0.1;
-
-    float renew_per = 0.3;
-
     // initial population
     int P[population_size][size+1];
     // scores of population    
@@ -165,9 +154,7 @@ int run(Graph g) {
     // helping variables
     int parent1;
     int parent2;
-
     int index;
-
 
     // check for renew percentage
     cout << (1-renew_per)*population_size<<endl;
@@ -179,11 +166,20 @@ int run(Graph g) {
     int population_keep = (1-renew_per)*population_size;
     int population_pair = (renew_per * population_size) / 2;
 
-    if(population_keep_f == (int)population_keep_f && population_pair_f == (int)population_pair_f)
-        cout<<"ok"<<endl;
-    else
-        return -1;
+    cout << "debug1"<<endl;
+    cout << population_keep_f <<endl;
+    cout << (int)population_pair_f <<endl;
 
+    cout << "debug3"<<endl;
+    if(population_keep_f == (int)population_keep_f && population_pair_f == (int)population_pair_f){
+        cout<<"ok"<<endl;
+    }
+    else{
+        cout << "not ok"<<endl;
+        return false;
+    }
+        
+    cout << "debug2"<<endl;
     // initialize a random population
     for (int i = 0; i < population_size ; i++){
 
@@ -205,42 +201,28 @@ int run(Graph g) {
         cout<<"Number of valid edges: " << scores[i] << endl;
     }
 
-    int end = 0;
 
     // main loop
     for(int k = 0; k < limit; k++){
-
 
         // check for solution
         for (int i = 0; i < population_size; i++){
 
             if(scores[i] == edges){
-                end = 1;
+
                 cout << "Solution found on iteration k =" << k <<endl;
                 cout << "Solution is: ";
                 print_chromosome(P[i],size);
                 cout << endl;
 
-                string solution = "P='";
-
+                // copy the chromosome to the argument 'solution'
                 for(int xi = 1; xi <= size; xi++ ){
-                    solution += to_string(P[i][xi]);
-                    solution += " ";
+                    solution[xi] = P[i][xi];
                 }
-                solution+="' python3 draw.py";
-                cout << solution << endl;
 
-                char* char_arr;
-                string str_obj(solution);
-                char_arr = &str_obj[0];
-                cout << char_arr << endl;
-
-                system(char_arr);
+                return true;
             }
-                
         }
-
-        if(end==1) break;
 
         //population_keep
 
@@ -290,9 +272,7 @@ int run(Graph g) {
         }
         
 
-
         cout << "New population:"<<endl;
-
 
         for (int i = 0; i < population_size ; i++){
 
@@ -313,10 +293,6 @@ int run(Graph g) {
         int mutation_size = round(population_size * mutation_per);
         int mutation_indexes[mutation_size];
 
-        // for (int m=0;m<mutation_size;m++){
-        //     mutation_indexes[m] = m;
-        // }
-
         random_draw(mutation_indexes,mutation_size,population_size);
 
 
@@ -330,23 +306,11 @@ int run(Graph g) {
                 new_color = rand() % 4;
             }
 
-            // will remove this (just for testing)
-            if(Ps[mutation_indexes[m]][position] == new_color)
-                return 34;
-
             Ps[mutation_indexes[m]][position] = new_color;
 
             cout<< "Mutate member " << mutation_indexes[m] << " on position "<< position << " with color " << new_color << endl;
         }
         
-
-        // int new_color = rand() % 4;
-        // int member = rand() % population_size;
-        // int position = rand() % size + 1;
-
-        // cout<< "Mutate member " << member << " on position "<< position << " with color " << new_color << endl;
-
-        // Ps[member][position] = new_color;
 
         cout << "New population after mutation:"<<endl;
 
@@ -373,11 +337,9 @@ int run(Graph g) {
 
     }
 
-    if(end==0){
-        cout << "Algorithm exeded the maximum number of iterations and solution was NOT found" << endl;
-        cout << "Aborting . . ." << endl;
-        //return -1;
-    }
 
-    return 0;
-} 
+    cout << "Algorithm exeded the maximum number of iterations and solution was NOT found" << endl;
+    cout << "Aborting . . ." << endl;
+    return false;
+
+}

@@ -59,10 +59,38 @@ int main(){
     cout << "Adjacency List of the graph is:" << endl;
     g.printGraph();
 
+    // initialize chromosome that will have the solution
+    // (first element is dummy)
+    int solution[size+1];
 
-    run(g);
 
 
+    bool check = run(g, 60, 5000, 0.1, 0.3, solution);
+
+    if(check){
+        cout << "solution was found!"<<endl;
+
+        for(int i = 1; i <= size; i++ ){
+            cout << solution[i] << " ";
+        }
+        cout << endl;
+
+        string command = "P='";
+
+        for(int xi = 1; xi <= size; xi++ ){
+            command += to_string(solution[xi]);
+            command += " ";
+        }
+        command+="' python3 draw.py";
+        cout << command << endl;
+
+        char* char_arr;
+        string str_obj(command);
+        char_arr = &str_obj[0];
+        cout << char_arr << endl;
+
+        system(char_arr);
+    }
 
 
     return 0;

@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw
+import matplotlib.pyplot as plt
 import os
 
 '''
@@ -54,4 +55,6 @@ for i,l in enumerate(coors.split("\n")):
     ImageDraw.floodfill(img, seed, rep_value, thresh=50)
 
 # show the image with the user's default Image Viewer
-img.show()
+#img.show()
+plt.imshow(img)
+plt.show()
