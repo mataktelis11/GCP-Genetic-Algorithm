@@ -71,7 +71,7 @@ class Graph
 
 
     ~Graph(){
-        delete [] adj;
+        //delete [] adj;
     }
 
 };

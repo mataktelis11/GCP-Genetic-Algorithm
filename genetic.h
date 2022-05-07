@@ -166,11 +166,11 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int population_keep = (1-renew_per)*population_size;
     int population_pair = (renew_per * population_size) / 2;
 
-    cout << "debug1"<<endl;
-    cout << population_keep_f <<endl;
-    cout << (int)population_pair_f <<endl;
 
-    cout << "debug3"<<endl;
+    cout << population_keep_f <<endl;
+    cout << population_pair_f <<endl;
+
+
     if(population_keep_f == (int)population_keep_f && population_pair_f == (int)population_pair_f){
         cout<<"ok"<<endl;
     }
@@ -178,8 +178,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         cout << "not ok"<<endl;
         return false;
     }
-        
-    cout << "debug2"<<endl;
+
     // initialize a random population
     for (int i = 0; i < population_size ; i++){
 
@@ -195,10 +194,10 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         scores[i] = g.countValidEdges(P[i]);
 
 
-        cout << i << " : ";
+        //cout << i << " : ";
         // print the color sequence
-        print_chromosome(P[i],size);
-        cout<<"Number of valid edges: " << scores[i] << endl;
+        //print_chromosome(P[i],size);
+        //cout<<"Number of valid edges: " << scores[i] << endl;
     }
 
 
@@ -231,11 +230,11 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
         random_draw_with_roulette(renew_indexes,renew_size,population_size, scores);
 
-        cout << "renew indexes: ";
+        //cout << "renew indexes: ";
         for (int m=0;m<renew_size;m++){
-            cout << renew_indexes[m]<< " ";
+            //cout << renew_indexes[m]<< " ";
         }
-        cout<<endl;
+        //cout<<endl;
 
         // pass parents to Ps
         for (int i = 0; i < renew_size; i++){
@@ -261,9 +260,9 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
                 parent2 = roulette(scores,population_size);
             }
 
-            cout << "Pairing members " << parent1 << " " << parent2 << endl;
-            cout<<index<<endl;
-            cout<<index+1<<endl;
+            //cout << "Pairing members " << parent1 << " " << parent2 << endl;
+            //cout<<index<<endl;
+            //cout<<index+1<<endl;
 
             do_crossover_single_point(P[parent1],P[parent2],Ps[index],Ps[index+1],size);
 
@@ -272,7 +271,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         }
         
 
-        cout << "New population:"<<endl;
+        //cout << "New population:"<<endl;
 
         for (int i = 0; i < population_size ; i++){
 
@@ -281,10 +280,10 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
             scores[i] = g.countValidEdges(Ps[i]);
 
 
-            cout << i << " : ";
+            //cout << i << " : ";
             // print the color sequence
-            print_chromosome(Ps[i],size);
-            cout<<"Number of valid edges: " << scores[i] << endl;
+            //print_chromosome(Ps[i],size);
+            //cout<<"Number of valid edges: " << scores[i] << endl;
         }
 
 
@@ -308,11 +307,11 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
             Ps[mutation_indexes[m]][position] = new_color;
 
-            cout<< "Mutate member " << mutation_indexes[m] << " on position "<< position << " with color " << new_color << endl;
+            //cout<< "Mutate member " << mutation_indexes[m] << " on position "<< position << " with color " << new_color << endl;
         }
         
 
-        cout << "New population after mutation:"<<endl;
+        //cout << "New population after mutation:"<<endl;
 
         for (int i = 0; i < population_size ; i++){
 
@@ -320,10 +319,10 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
             scores[i] = g.countValidEdges(Ps[i]);
 
 
-            cout << i << " : ";
+            //cout << i << " : ";
             // print the color sequence
-            print_chromosome(Ps[i],size);
-            cout<<"Number of valid edges: " << scores[i] << endl;
+            //print_chromosome(Ps[i],size);
+            //cout<<"Number of valid edges: " << scores[i] << endl;
         }
 
         // copy population from Ps to P

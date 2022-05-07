@@ -10,8 +10,6 @@ int main(){
     // set the size of the graph (number of nodes)
     int size = 48;
 
-    
-
     // create Graph object
     Graph g(size);
     // add the edges
@@ -121,20 +119,11 @@ int main(){
     g.addEdge(42,48);
     g.addEdge(44,46);
 
-
-    cout << "Adjacency List of the graph is:" << endl;
-    g.printGraph();
-
     // initialize chromosome that will have the solution
     // (first element is dummy)
     int solution[size+1];
 
-
-
-    bool check = run(g, 100, 100000, 0.1, 0.3, solution);
-
-    cout<<"debug11"<<endl;
-    cout<<check<<endl;
+    bool check = run(g, 500, 100000, 0.01, 0.8, solution);
 
     if(check){
         cout << "solution was found!"<<endl;
@@ -144,23 +133,22 @@ int main(){
         }
         cout << endl;
 
-        // string command = "P='";
+        string command = "P='";
 
-        // for(int xi = 1; xi <= size; xi++ ){
-        //     command += to_string(solution[xi]);
-        //     command += " ";
-        // }
-        // command+="' python3 draw.py";
-        // cout << command << endl;
+        for(int xi = 1; xi <= size; xi++ ){
+            command += to_string(solution[xi]);
+            command += " ";
+        }
+        command+="' python3 usa_draw.py";
+        cout << command << endl;
 
-        // char* char_arr;
-        // string str_obj(command);
-        // char_arr = &str_obj[0];
-        // cout << char_arr << endl;
+        char* char_arr;
+        string str_obj(command);
+        char_arr = &str_obj[0];
+        cout << char_arr << endl;
 
-        // system(char_arr);
+        system(char_arr);
     }
-    cout<<"debug13"<<endl;
 
     return 0;
 }
