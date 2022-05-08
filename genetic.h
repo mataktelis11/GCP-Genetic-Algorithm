@@ -156,15 +156,12 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int parent2;
     int index;
 
-    // check for renew percentage
-    cout << (1-renew_per)*population_size<<endl;
-    cout << (renew_per)*population_size/2<<endl;
 
-    float population_keep_f = (1-renew_per)*population_size;
-    float population_pair_f = (renew_per * population_size) / 2;
+    float population_keep_f = (1-renew_per)*(float)population_size;
+    float population_pair_f = (renew_per * (float)population_size) / 2;
 
-    int population_keep = (1-renew_per)*population_size;
-    int population_pair = (renew_per * population_size) / 2;
+    int population_keep = (1-renew_per)*(float)population_size;
+    int population_pair = (renew_per * (float)population_size) / 2;
 
 
     cout << population_keep_f <<endl;
