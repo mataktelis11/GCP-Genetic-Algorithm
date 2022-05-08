@@ -123,7 +123,7 @@ int main(){
     // (first element is dummy)
     int solution[size+1];
 
-    bool check = run(g, 500, 100000, 0.01, 0.8, solution);
+    bool check = run(g, 200, 10000, 0.05, 0.7, solution);
 
     if(check){
         cout << "solution was found!"<<endl;

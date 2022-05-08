@@ -169,6 +169,12 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
     cout << population_keep_f <<endl;
     cout << population_pair_f <<endl;
+    cout<<"s"<<endl;
+    cout << (int)population_keep_f <<endl;
+    cout << (int)population_pair_f <<endl;
+    cout<<"something is not right with the (int)"<<endl;
+
+
 
 
     if(population_keep_f == (int)population_keep_f && population_pair_f == (int)population_pair_f){
@@ -176,6 +182,12 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     }
     else{
         cout << "not ok"<<endl;
+
+        if(population_keep_f == (int)population_keep_f)
+            cout<<" population_keep_f == (int)population_keep_f ok"<< endl;
+        
+        if(population_pair_f == (int)population_pair_f)
+            cout<<"population_pair_f == (int)population_pair_f ok"<< endl;
         return false;
     }
 
