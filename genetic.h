@@ -209,7 +209,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
             if(scores[i] == edges){
 
-                cout << "Solution found on iteration k =" << k <<endl;
+                cout << "Solution found on iteration k = " << k <<endl;
                 cout << "Solution is: ";
                 print_chromosome(P[i],size);
                 cout << endl;

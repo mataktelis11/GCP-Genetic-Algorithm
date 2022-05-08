@@ -70,8 +70,22 @@ class Graph
     }
 
 
+    // Implementing deep copy
+    Graph(Graph& g)
+    {
+        size = g.size;
+        adj = new vector<int>[size+1];
+
+        for (int v = 1; v <= size ; v++){
+
+            for (int x : g.adj[v]){
+                adj[v].push_back(x);
+            }
+        }
+    }
+
     ~Graph(){
-        //delete [] adj;
+        delete [] adj;
     }
 
 };
