@@ -144,12 +144,12 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int size = g.size;
 
 
-    cout << "Adjacency List of the graph is:" << endl;
-    g.printGraph();
+    //cout << "Adjacency List of the graph is:" << endl;
+    //g.printGraph();
 
     int edges = g.countEdges();
 
-    cout << "Edges are " << edges << endl;
+    //cout << "Edges are " << edges << endl;
 
     // initial population
     int P[population_size][size+1];
@@ -163,7 +163,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int parent2;
     int index;
 
-
+    // renew percentage check
     float population_keep_f = (1-renew_per)*(float)population_size;
     float population_pair_f = (renew_per * (float)population_size) / 2;
 
@@ -171,30 +171,11 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int population_pair = (renew_per * (float)population_size) / 2;
 
 
-    cout << population_keep_f <<endl;
-    cout << population_pair_f <<endl;
-    cout<<"s"<<endl;
-    cout << (int)population_keep_f <<endl;
-    cout << (int)population_pair_f <<endl;
-    cout<<"something is not right with the (int)"<<endl;
-
-
-
-
     if(cmpf(population_keep_f,floor(population_keep_f)) && cmpf(population_pair_f,floor(population_pair_f))){
         cout<<"ok"<<endl;
     }
     else{
         cout << "not ok"<<endl;
-
-        if(cmpf(population_keep_f,floor(population_keep_f)))
-            cout<<" population_keep_f == (int)population_keep_f ok with cmpf"<< endl;
-        else{
-            cout<<population_keep_f<<endl;
-            cout<<floor(population_keep_f)<<endl;
-        }
-        if(population_pair_f == floor(population_pair_f))
-            cout<<"population_pair_f == (int)population_pair_f ok"<< endl;
         return false;
     }
 

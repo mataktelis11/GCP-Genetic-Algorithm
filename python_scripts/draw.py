@@ -34,10 +34,10 @@ arg = os.getenv('P')
 
 args = arg.split(" ")
 
-img = Image.open(R"map.png")
+img = Image.open(R"python_scripts/map.png")
 
 for i,l in enumerate(coors.split("\n")):
-    #print(l)
+
     vals = l.split(",")
     
     seed = (int(vals[0]),int(vals[1]))
@@ -54,7 +54,6 @@ for i,l in enumerate(coors.split("\n")):
     # run the floodfill function (similar to 'bucket fill' of gimp/photoshop)
     ImageDraw.floodfill(img, seed, rep_value, thresh=50)
 
-# show the image with the user's default Image Viewer
-#img.show()
+# show the image
 plt.imshow(img)
 plt.show()
