@@ -126,7 +126,8 @@ int main(){
     // (first element is dummy)
     int solution[size+1];
 
-    bool check = run(g, 600, 10000, 0.02, 0.7, solution);
+    //bool check = run(g, 600, 10000, 0.01, 0.4, solution);
+    bool check = run(g, 600, 50000, 0.03, 0.7, solution);
 
     if(check){
 

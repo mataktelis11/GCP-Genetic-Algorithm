@@ -172,10 +172,10 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
 
     if(cmpf(population_keep_f,floor(population_keep_f)) && cmpf(population_pair_f,floor(population_pair_f))){
-        cout<<"ok"<<endl;
+        cout<<"Renew percentages are valid."<<endl;
     }
     else{
-        cout << "not ok"<<endl;
+        cout << "Renew percentages are NOT valid."<<endl;
         return false;
     }
 
