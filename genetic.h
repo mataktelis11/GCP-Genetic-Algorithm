@@ -7,6 +7,13 @@
 using namespace std;
 
 
+
+bool cmpf(float A, float B, float epsilon = 0.005f)
+{
+    return (fabs(A - B) < epsilon);
+}
+
+
 /*
 
 
@@ -174,16 +181,19 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
 
 
-    if(population_keep_f == (int)population_keep_f && population_pair_f == (int)population_pair_f){
+    if(cmpf(population_keep_f,floor(population_keep_f)) && cmpf(population_pair_f,floor(population_pair_f))){
         cout<<"ok"<<endl;
     }
     else{
         cout << "not ok"<<endl;
 
-        if(population_keep_f == (int)population_keep_f)
-            cout<<" population_keep_f == (int)population_keep_f ok"<< endl;
-        
-        if(population_pair_f == (int)population_pair_f)
+        if(cmpf(population_keep_f,floor(population_keep_f)))
+            cout<<" population_keep_f == (int)population_keep_f ok with cmpf"<< endl;
+        else{
+            cout<<population_keep_f<<endl;
+            cout<<floor(population_keep_f)<<endl;
+        }
+        if(population_pair_f == floor(population_pair_f))
             cout<<"population_pair_f == (int)population_pair_f ok"<< endl;
         return false;
     }
