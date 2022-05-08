@@ -119,36 +119,38 @@ int main(){
     g.addEdge(42,48);
     g.addEdge(44,46);
 
+    cout << "Adjacency List of the graph is:" << endl;
+    g.printGraph();
+
     // initialize chromosome that will have the solution
     // (first element is dummy)
     int solution[size+1];
 
-    bool check = run(g, 200, 10000, 0.05, 0.7, solution);
+    bool check = run(g, 600, 10000, 0.02, 0.7, solution);
 
     if(check){
-        cout << "solution was found!"<<endl;
 
-        for(int i = 1; i <= size; i++ ){
-            cout << solution[i] << " ";
-        }
-        cout << endl;
-
+        // create command
         string command = "P='";
 
         for(int xi = 1; xi <= size; xi++ ){
             command += to_string(solution[xi]);
             command += " ";
         }
-        command+="' python3 usa_draw.py";
-        cout << command << endl;
+        command+="' python3 python_scripts/usa_draw.py";
 
+        cout <<"Will run the following command to display graph:"<<endl;
+        cout<< command << endl;
+
+        // turn string into char*
         char* char_arr;
         string str_obj(command);
         char_arr = &str_obj[0];
-        cout << char_arr << endl;
+
 
         system(char_arr);
     }
+
 
     return 0;
 }
