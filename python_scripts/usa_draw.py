@@ -67,7 +67,7 @@ arg = os.getenv('P')
 
 args = arg.split(" ")
 
-img = Image.open(R"python_scripts/usa_map.png")
+img = Image.open(R"python_scripts/production_usa.png")
 
 for i,l in enumerate(coors.split("\n")):
 
@@ -87,6 +87,13 @@ for i,l in enumerate(coors.split("\n")):
     # run the floodfill function (similar to 'bucket fill' of gimp/photoshop)
     ImageDraw.floodfill(img, seed, rep_value, thresh=50)
 
+    # add michigan again
+    if(i==19):
+        ImageDraw.floodfill(img, (1269,213), rep_value, thresh=50)
+
+
 # show the image
 plt.imshow(img)
+plt.grid(False)
+plt.axis('off')
 plt.show()

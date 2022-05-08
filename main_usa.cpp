@@ -147,10 +147,8 @@ int main(){
         string str_obj(command);
         char_arr = &str_obj[0];
 
-
         system(char_arr);
     }
-
 
     return 0;
 }

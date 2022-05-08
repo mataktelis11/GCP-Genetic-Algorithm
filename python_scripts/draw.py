@@ -56,4 +56,6 @@ for i,l in enumerate(coors.split("\n")):
 
 # show the image
 plt.imshow(img)
+plt.grid(False)
+plt.axis('off')
 plt.show()
