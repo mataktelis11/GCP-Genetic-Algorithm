@@ -8,7 +8,7 @@ COLOR       code    rgb value
 yellow:      0     (255,255,0)
 red:         1     (255,0,0)
 green:       2     (0,128,0)
-bleu:        3     (0,0,255)
+blue:        3     (0,0,255)
 
 '''
 

@@ -8,9 +8,8 @@ COLOR       code    rgb value
 yellow:      0     (255,255,0)
 red:         1     (255,0,0)
 green:       2     (0,128,0)
-bleu:        3     (0,0,255)
+blue:        3     (0,0,255)
 
-1 1 1 0 1 0 1 2 0 1 3 2 1 0 0 2 3 2 2 3 3 0 2 3 3 3 1 2 2 1 2 0 1 3 2 0 1 3 2 3 0 2 3 1 0 3 2 0
 '''
 
 # points for filling
@@ -67,7 +66,7 @@ arg = os.getenv('P')
 
 args = arg.split(" ")
 
-img = Image.open(R"python_scripts/production_usa.png")
+img = Image.open(R"python_scripts/map_usa.png")
 
 for i,l in enumerate(coors.split("\n")):
 

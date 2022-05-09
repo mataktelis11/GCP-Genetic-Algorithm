@@ -5,7 +5,32 @@
 using namespace std;
 
 
-int main(){
+int main(int argc, char* argv[]){
+
+    // the command you use on your terminal to call Python 3.
+    string PYTHONCALL = "python3"; // default value
+
+    // ./a.out -p python3.8
+    // if(argc == 2 && argv[1] == "-p"){
+    //     cout << "Please specify the command used to call Python 3 after the -p"<<endl;
+    //     return -1;
+    // }
+    // else if(argc == 3 && argv[1] == "-p"){
+    //     PYTHONCALL = argv[2];
+    // }
+    // else if(argc != 1){
+    //     cout << "Invalid argument(s) given"<<endl;
+    //     cout << argv[1]<<endl;
+    //     return -1;
+    // }
+
+    if(argc == 2){
+        PYTHONCALL = argv[1];
+    }
+    if(argc > 2){
+        cout << "Too many arguments given"<<endl;
+        return -1;
+    }
 
     // set the size of the graph (number of nodes)
     int size = 16;
@@ -74,7 +99,7 @@ int main(){
             command += to_string(solution[xi]);
             command += " ";
         }
-        command+="' python3 python_scripts/draw.py";
+        command+="' " + PYTHONCALL + " python_scripts/draw.py";
 
         cout <<"Will run the following command to display graph:"<<endl;
         cout<< command << endl;
@@ -84,6 +109,7 @@ int main(){
         string str_obj(command);
         char_arr = &str_obj[0];
 
+        // call the command
         system(char_arr);
     }
 

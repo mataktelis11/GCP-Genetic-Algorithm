@@ -17,12 +17,20 @@ class Graph
     }
 
 
+    /*
+
+
+    */
     void addEdge(int u, int v){
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
 
 
+    /*
+
+
+    */
     void printGraph(){
         for (int v = 1; v <= size ; v++){
 
@@ -36,6 +44,10 @@ class Graph
     }
 
 
+    /*
+
+
+    */
     int countValidEdges(int Vcolors[]){
         int sum = 0;
 
@@ -53,6 +65,11 @@ class Graph
         return sum/2;
     }
 
+
+    /*
+
+
+    */
     int countEdges(){
         int sum = 0;
 
@@ -84,8 +101,8 @@ class Graph
         }
     }
 
+
     ~Graph(){
         delete [] adj;
     }
-
 };

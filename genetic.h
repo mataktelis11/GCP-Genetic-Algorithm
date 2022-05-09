@@ -75,15 +75,15 @@ void random_draw(int choices[], int draw_size, int size){
 
 
 /*
- m is the size of scores
+ m is the size of fitness
 
 */
-int roulette(int scores[], int m){
+int roulette(int fitness[], int m){
 
     int sum = 0;
 
     for (int i = 0; i < m ; i++){
-        sum += scores[i];
+        sum += fitness[i];
     }
 
     //cout<< "sum is: " << sum << endl;
@@ -95,7 +95,7 @@ int roulette(int scores[], int m){
     int temp = 0;
     for (int j = 0; j < m ; j++){
 
-        temp += scores[j];
+        temp += fitness[j];
 
         if(choice <= temp){
             //cout << "choose "<< j <<endl;
@@ -111,13 +111,13 @@ int roulette(int scores[], int m){
 
 
 */
-void random_draw_with_roulette(int choices[], int draw_size, int size, int scores[]){
+void random_draw_with_roulette(int choices[], int draw_size, int size, int fitness[]){
     int draw_number;
 
     for (int i = 0; i < draw_size; i++){
 
         do{
-            choices[i] = roulette(scores, size);
+            choices[i] = roulette(fitness, size);
 
             for (int j = 0; j < i; j++){
 
@@ -153,8 +153,8 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
     // initial population
     int P[population_size][size+1];
-    // scores of population    
-    int scores[population_size];
+    // fitness of population    
+    int fitness[population_size];
     // new population
     int Ps[population_size][size+1];
 
@@ -190,14 +190,14 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
             P[i][j] = rand() % 4;
         }
 
-        // calculate "scores"
-        scores[i] = g.countValidEdges(P[i]);
+        // calculate "fitness"
+        fitness[i] = g.countValidEdges(P[i]);
 
 
         //cout << i << " : ";
         // print the color sequence
         //print_chromosome(P[i],size);
-        //cout<<"Number of valid edges: " << scores[i] << endl;
+        //cout<<"Number of valid edges: " << fitness[i] << endl;
     }
 
 
@@ -207,7 +207,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         // check for solution
         for (int i = 0; i < population_size; i++){
 
-            if(scores[i] == edges){
+            if(fitness[i] == edges){
 
                 cout << "Solution found on iteration k = " << k <<endl;
                 cout << "Solution is: ";
@@ -228,7 +228,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         int renew_size = population_keep;
         int renew_indexes[renew_size];
 
-        random_draw_with_roulette(renew_indexes,renew_size,population_size, scores);
+        random_draw_with_roulette(renew_indexes,renew_size,population_size, fitness);
 
         //cout << "renew indexes: ";
         for (int m=0;m<renew_size;m++){
@@ -252,12 +252,12 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
         for (int i = 0; i < population_pair; i++){
 
-            parent1 = roulette(scores,population_size);
-            parent2 = roulette(scores,population_size);
+            parent1 = roulette(fitness,population_size);
+            parent2 = roulette(fitness,population_size);
 
             while(parent1 == parent2){
 
-                parent2 = roulette(scores,population_size);
+                parent2 = roulette(fitness,population_size);
             }
 
             //cout << "Pairing members " << parent1 << " " << parent2 << endl;
@@ -276,14 +276,14 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         for (int i = 0; i < population_size ; i++){
 
 
-            // calculate "scores"
-            scores[i] = g.countValidEdges(Ps[i]);
+            // calculate "fitness"
+            fitness[i] = g.countValidEdges(Ps[i]);
 
 
             //cout << i << " : ";
             // print the color sequence
             //print_chromosome(Ps[i],size);
-            //cout<<"Number of valid edges: " << scores[i] << endl;
+            //cout<<"Number of valid edges: " << fitness[i] << endl;
         }
 
 
@@ -315,14 +315,14 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
         for (int i = 0; i < population_size ; i++){
 
-            // calculate "scores"
-            scores[i] = g.countValidEdges(Ps[i]);
+            // calculate "fitness"
+            fitness[i] = g.countValidEdges(Ps[i]);
 
 
             //cout << i << " : ";
             // print the color sequence
             //print_chromosome(Ps[i],size);
-            //cout<<"Number of valid edges: " << scores[i] << endl;
+            //cout<<"Number of valid edges: " << fitness[i] << endl;
         }
 
         // copy population from Ps to P
