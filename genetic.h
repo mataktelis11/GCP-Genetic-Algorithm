@@ -7,15 +7,26 @@
 using namespace std;
 
 
+/*
+Args:
+    float a,b
+    float epsilon : a very small float number (default value=0.005)
 
-bool cmpf(float A, float B, float epsilon = 0.005f)
+Compare 2 given float numbers
+
+*/
+bool cmpfloats(float a, float b, float epsilon = 0.005f)
 {
-    return (fabs(A - B) < epsilon);
+    return (fabs(a - b) < epsilon);
 }
 
 
 /*
+Args:
+    P a chromosome
+    size the chromosome's size
 
+Print the given chromosome
 
 */
 void print_chromosome(int P[],int size){
@@ -27,14 +38,18 @@ void print_chromosome(int P[],int size){
 
 
 /*
+Args:
+    parent1, parent2: the parent chromosomes
+    child1, child2: the child chromosomes that will be born
+    m: size of chromosomes
 
+Implements the single point crossover. The children are stored
+in the arguments child1 and child2.
 
 */
 void do_crossover_single_point(int parent1[], int parent2[], int child1[], int child2[], int m){
 
     int n = m/2;
-
-    //cout << "n is "<< n <<endl;
 
     for (int i = 1; i <= n; i++){
         child1[i] = parent1[i];
@@ -45,12 +60,14 @@ void do_crossover_single_point(int parent1[], int parent2[], int child1[], int c
         child1[i] = parent2[i];
         child2[i] = parent1[i];
     }
-
 }
 
 
 /*
+Generates random number from 0 to 'size'.
+These numbers are all unique and passed to the argument 'choices[]'
 
+draw_size: number of random numbers that will be generated
 
 */
 void random_draw(int choices[], int draw_size, int size){
@@ -75,11 +92,16 @@ void random_draw(int choices[], int draw_size, int size){
 
 
 /*
- m is the size of fitness
+Args:
+    int[] fitness: the fitness array
+    int m: is size of fitness array
+
+Performs the roulette test and returns the chosen chromosome index
 
 */
 int roulette(int fitness[], int m){
 
+    // find sum
     int sum = 0;
 
     for (int i = 0; i < m ; i++){
@@ -108,7 +130,10 @@ int roulette(int fitness[], int m){
 
 
 /*
+Generates random number from 0 to 'size' by using roulette.
+These numbers are all unique and passed to the argument 'choices[]'
 
+draw_size: number of random numbers that will be generated
 
 */
 void random_draw_with_roulette(int choices[], int draw_size, int size, int fitness[]){
@@ -132,7 +157,17 @@ void random_draw_with_roulette(int choices[], int draw_size, int size, int fitne
 
 
 /*
+Args:
+    Graph g: graph object to solve the Graph Coloring Problem
+    int population_size: the size of the population
+    int limit: the maximum number of iterations the algorithm is allowed to do
+    float mutation_per: the mutation percentage
+    float renew_per: the renew percentage
+    int solution[]: array to write the solution (the fitest chromosome)
 
+
+Creates a random initial population and executes the main loop.
+Returns 'true' if solution was found.
 
 */
 bool run(Graph g, int population_size, int limit, float mutation_per, float renew_per, int solution[]) {
@@ -140,20 +175,14 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     // initialize random seed
     srand (time(NULL));
 
-    // set the size of the graph
+    // get the size of the graph
     int size = g.size;
-
-
-    //cout << "Adjacency List of the graph is:" << endl;
-    //g.printGraph();
-
+    //get the 
     int edges = g.countEdges();
-
-    //cout << "Edges are " << edges << endl;
 
     // initial population
     int P[population_size][size+1];
-    // fitness of population    
+    // fitness of population
     int fitness[population_size];
     // new population
     int Ps[population_size][size+1];
@@ -171,7 +200,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int population_pair = (renew_per * (float)population_size) / 2;
 
 
-    if(cmpf(population_keep_f,floor(population_keep_f)) && cmpf(population_pair_f,floor(population_pair_f))){
+    if(cmpfloats(population_keep_f,floor(population_keep_f)) && cmpfloats(population_pair_f,floor(population_pair_f))){
         cout<<"Renew percentages are valid."<<endl;
     }
     else{
@@ -236,7 +265,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         }
         //cout<<endl;
 
-        // pass parents to Ps
+        // pass chromosomes from P to Ps
         for (int i = 0; i < renew_size; i++){
 
             for (int j = 0; j < size+1; j++){
@@ -270,21 +299,22 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
         }
         
+        // calculate the
 
         //cout << "New population:"<<endl;
 
-        for (int i = 0; i < population_size ; i++){
+        // for (int i = 0; i < population_size ; i++){
 
 
-            // calculate "fitness"
-            fitness[i] = g.countValidEdges(Ps[i]);
+        //     // calculate "fitness"
+        //     fitness[i] = g.countValidEdges(Ps[i]);
 
 
-            //cout << i << " : ";
-            // print the color sequence
-            //print_chromosome(Ps[i],size);
-            //cout<<"Number of valid edges: " << fitness[i] << endl;
-        }
+        //     //cout << i << " : ";
+        //     // print the color sequence
+        //     //print_chromosome(Ps[i],size);
+        //     //cout<<"Number of valid edges: " << fitness[i] << endl;
+        // }
 
 
         // mutation
@@ -296,11 +326,12 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
 
         for (int m=0;m<mutation_size;m++){
-            
-            
+
             int position = rand() % size + 1;
 
             int new_color = rand() % 4;
+            // make sure the mutation doesn't choose the same color 
+            // as the existing one
             while(Ps[mutation_indexes[m]][position] == new_color){
                 new_color = rand() % 4;
             }
@@ -327,18 +358,14 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
         // copy population from Ps to P
         for (int i = 0; i < population_size; i++){
-
             for (int j = 0; j < size+1; j++){
-                
                 P[i][j] = Ps[i][j];
             }
         }
 
     }
 
-
     cout << "Algorithm exeded the maximum number of iterations and solution was NOT found" << endl;
     cout << "Aborting . . ." << endl;
     return false;
-
 }

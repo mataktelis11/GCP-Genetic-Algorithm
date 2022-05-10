@@ -127,7 +127,10 @@ int main(){
     int solution[size+1];
 
     //bool check = run(g, 600, 10000, 0.01, 0.4, solution);
-    bool check = run(g, 600, 50000, 0.03, 0.7, solution);
+    //bool check = run(g, 600, 7000, 0.03, 0.7, solution); //<- mostly works
+    //bool check = run(g, 160, 7000, 0.05, 0.65, solution);
+
+    bool check = run(g, 600, 5000, 0.03, 0.7, solution); 
 
     if(check){
 

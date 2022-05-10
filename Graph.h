@@ -7,8 +7,8 @@ class Graph
 {
   public:
     
-    int size;
-    vector<int>* adj;
+    int size;           // number of nodes
+    vector<int>* adj;   // adjacency list
 
     Graph(int s){
 
@@ -18,7 +18,7 @@ class Graph
 
 
     /*
-
+    Adds and edge to the adjacency list.
 
     */
     void addEdge(int u, int v){
@@ -28,7 +28,7 @@ class Graph
 
 
     /*
-
+    Prints the adjacency list in a radable way.
 
     */
     void printGraph(){
@@ -45,29 +45,33 @@ class Graph
 
 
     /*
+    Args:
+        int Colors[]: an array representing a coloring for the nodes
 
+    Returns the number of valid edges of the graph
+    based of the given coloring.
 
     */
-    int countValidEdges(int Vcolors[]){
+    int countValidEdges(int Colors[]){
         int sum = 0;
 
         for (int i = 1; i <= size ; i++){
 
             for (int x : adj[i]){
-                if(Vcolors[x]!=Vcolors[i])
+                if(Colors[x]!=Colors[i])
                     sum+= 1;
             }
         }
 
         // The total sum of the edges is always even, because
-        // in an undirected graph every edge is connected
-        // twice between two vertices
+        // in an undirected graph every edge is
+        // connected twice between two vertices
         return sum/2;
     }
 
 
     /*
-
+    Returns the number of edges of the graph.
 
     */
     int countEdges(){
@@ -81,11 +85,10 @@ class Graph
         }
 
         // The total sum of the edges is always even, because
-        // in an undirected graph every edge is connected
-        // twice between two vertices
+        // in an undirected graph every edge is
+        // connected twice between two vertices
         return sum/2;
     }
-
 
     // Implementing deep copy
     Graph(Graph& g)
@@ -101,7 +104,7 @@ class Graph
         }
     }
 
-
+    // destructor
     ~Graph(){
         delete [] adj;
     }
