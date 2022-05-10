@@ -4,26 +4,22 @@
 
 using namespace std;
 
+/*
+Main function that calls solves the Graph Coloring Problem
+for a specific graph by using a genetic algorithm
+
+If the genetic algorithm finds a solution, a python script is
+called that will display the graph with the colors choosen.
+
+See documentation for further details.
+*/
 
 int main(int argc, char* argv[]){
 
     // the command you use on your terminal to call Python 3.
     string PYTHONCALL = "python3"; // default value
 
-    // ./a.out -p python3.8
-    // if(argc == 2 && argv[1] == "-p"){
-    //     cout << "Please specify the command used to call Python 3 after the -p"<<endl;
-    //     return -1;
-    // }
-    // else if(argc == 3 && argv[1] == "-p"){
-    //     PYTHONCALL = argv[2];
-    // }
-    // else if(argc != 1){
-    //     cout << "Invalid argument(s) given"<<endl;
-    //     cout << argv[1]<<endl;
-    //     return -1;
-    // }
-
+    // give the command you on your terminal to call Python 3 as a main arg
     if(argc == 2){
         PYTHONCALL = argv[1];
     }
@@ -105,12 +101,12 @@ int main(int argc, char* argv[]){
         cout<< command << endl;
 
         // turn string into char*
-        char* char_arr;
+        char* char_command;
         string str_obj(command);
-        char_arr = &str_obj[0];
+        char_command = &str_obj[0];
 
         // call the command
-        system(char_arr);
+        system(char_command);
     }
 
     return 0;

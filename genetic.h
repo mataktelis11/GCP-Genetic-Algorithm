@@ -177,7 +177,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
     // get the size of the graph
     int size = g.size;
-    //get the 
+    //get the number of edges
     int edges = g.countEdges();
 
     // initial population
@@ -200,10 +200,10 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     int population_pair = (renew_per * (float)population_size) / 2;
 
 
-    if(cmpfloats(population_keep_f,floor(population_keep_f)) && cmpfloats(population_pair_f,floor(population_pair_f))){
+    if (cmpfloats(population_keep_f,floor(population_keep_f)) && cmpfloats(population_pair_f,floor(population_pair_f))){
         cout<<"Renew percentages are valid."<<endl;
     }
-    else{
+    else {
         cout << "Renew percentages are NOT valid."<<endl;
         return false;
     }
@@ -260,9 +260,9 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         random_draw_with_roulette(renew_indexes,renew_size,population_size, fitness);
 
         //cout << "renew indexes: ";
-        for (int m=0;m<renew_size;m++){
+        //for (int m=0;m<renew_size;m++){
             //cout << renew_indexes[m]<< " ";
-        }
+        //}
         //cout<<endl;
 
         // pass chromosomes from P to Ps
@@ -277,7 +277,6 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         // pairing
 
         index = population_keep;
-
 
         for (int i = 0; i < population_pair; i++){
 
@@ -299,24 +298,6 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
         }
         
-        // calculate the
-
-        //cout << "New population:"<<endl;
-
-        // for (int i = 0; i < population_size ; i++){
-
-
-        //     // calculate "fitness"
-        //     fitness[i] = g.countValidEdges(Ps[i]);
-
-
-        //     //cout << i << " : ";
-        //     // print the color sequence
-        //     //print_chromosome(Ps[i],size);
-        //     //cout<<"Number of valid edges: " << fitness[i] << endl;
-        // }
-
-
         // mutation
 
         int mutation_size = round(population_size * mutation_per);
@@ -341,26 +322,16 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
             //cout<< "Mutate member " << mutation_indexes[m] << " on position "<< position << " with color " << new_color << endl;
         }
         
-
-        //cout << "New population after mutation:"<<endl;
-
-        for (int i = 0; i < population_size ; i++){
-
-            // calculate "fitness"
-            fitness[i] = g.countValidEdges(Ps[i]);
-
-
-            //cout << i << " : ";
-            // print the color sequence
-            //print_chromosome(Ps[i],size);
-            //cout<<"Number of valid edges: " << fitness[i] << endl;
-        }
-
         // copy population from Ps to P
         for (int i = 0; i < population_size; i++){
             for (int j = 0; j < size+1; j++){
                 P[i][j] = Ps[i][j];
             }
+        }
+
+        // calculate fitness
+        for (int i = 0; i < population_size ; i++){
+            fitness[i] = g.countValidEdges(P[i]);
         }
 
     }

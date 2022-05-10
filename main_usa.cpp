@@ -4,8 +4,30 @@
 
 using namespace std;
 
+/*
+Main function that calls solves the Graph Coloring Problem
+for a specific graph by using a genetic algorithm. The graph
+in this case is the map of the USA.
 
-int main(){
+If the genetic algorithm finds a solution, a python script is
+called that will display the graph with the colors choosen.
+
+See documentation for further details.
+*/
+
+int main(int argc, char* argv[]){
+
+    // the command you use on your terminal to call Python 3.
+    string PYTHONCALL = "python3"; // default value
+
+    // give the command you on your terminal to call Python 3 as a main arg
+    if(argc == 2){
+        PYTHONCALL = argv[1];
+    }
+    if(argc > 2){
+        cout << "Too many arguments given"<<endl;
+        return -1;
+    }
 
     // set the size of the graph (number of nodes)
     int size = 48;
@@ -126,10 +148,6 @@ int main(){
     // (first element is dummy)
     int solution[size+1];
 
-    //bool check = run(g, 600, 10000, 0.01, 0.4, solution);
-    //bool check = run(g, 600, 7000, 0.03, 0.7, solution); //<- mostly works
-    //bool check = run(g, 160, 7000, 0.05, 0.65, solution);
-
     bool check = run(g, 600, 5000, 0.03, 0.7, solution); 
 
     if(check){
@@ -141,17 +159,18 @@ int main(){
             command += to_string(solution[xi]);
             command += " ";
         }
-        command+="' python3 python_scripts/usa_draw.py";
+        command+="' " + PYTHONCALL + " python_scripts/draw.py";
 
         cout <<"Will run the following command to display graph:"<<endl;
         cout<< command << endl;
 
         // turn string into char*
-        char* char_arr;
+        char* char_command;
         string str_obj(command);
-        char_arr = &str_obj[0];
+        char_command = &str_obj[0];
 
-        system(char_arr);
+        // call the command
+        system(char_command);
     }
 
     return 0;
