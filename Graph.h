@@ -13,13 +13,16 @@ class Graph
     Graph(int s){
 
         size = s;
-        adj = new vector<int>[size+1];
+        adj = new vector<int>[size+1]; // first element is dummy
     }
 
 
     /*
-    Adds and edge to the adjacency list.
+    Args:
+        int u,v : represent an edge
 
+    Adds the given edge to the adjacency list.
+    
     */
     void addEdge(int u, int v){
         adj[u].push_back(v);
