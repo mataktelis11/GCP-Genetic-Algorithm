@@ -159,7 +159,7 @@ int main(int argc, char* argv[]){
             command += to_string(solution[xi]);
             command += " ";
         }
-        command+="' " + PYTHONCALL + " python_scripts/draw.py";
+        command+="' " + PYTHONCALL + " python_scripts/usa_draw.py";
 
         cout <<"Will run the following command to display graph:"<<endl;
         cout<< command << endl;

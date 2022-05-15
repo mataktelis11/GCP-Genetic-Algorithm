@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
@@ -155,6 +156,25 @@ void random_draw_with_roulette(int choices[], int draw_size, int size, int fitne
     }
 }
 
+void check_if_population_converges(int fitness[], int size){
+
+    unordered_map<int, int> count; //works like Hash table
+
+    for (int i = 0; i < size ; i++){
+        count[fitness[i]]++;
+    }
+
+    int number = round(size * 0.95);
+
+    // Loop through the unordered map
+    for (auto x : count){
+        //cout << x.first << " " << x.second << endl;
+        if(x.second >= number)
+            cout<<"converges"<<endl;
+    }
+      
+
+}
 
 /*
 Args:
@@ -251,6 +271,9 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
                 return true;
             }
         }
+
+        //check if population converges
+        check_if_population_converges(fitness,population_size);
 
         //population_keep
 
