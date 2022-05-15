@@ -13,7 +13,8 @@ Args:
     float a,b
     float epsilon : a very small float number (default value=0.005)
 
-Compare 2 given float numbers
+Compare 2 the given float numbers. This is done by using a small 'epsilon' value.
+(The '==' shouldn't be used when comparing floats source: https://noobtuts.com/cpp/compare-float-values)
 
 */
 bool cmpfloats(float a, float b, float epsilon = 0.005f)
@@ -24,10 +25,10 @@ bool cmpfloats(float a, float b, float epsilon = 0.005f)
 
 /*
 Args:
-    P a chromosome
-    size the chromosome's size
+    int P[]: a chromosome
+    int size: the chromosome's size
 
-Print the given chromosome
+Print the given chromosome. Doesn't print a new line.
 
 */
 void print_chromosome(int P[],int size){
@@ -40,12 +41,14 @@ void print_chromosome(int P[],int size){
 
 /*
 Args:
-    parent1, parent2: the parent chromosomes
-    child1, child2: the child chromosomes that will be born
-    m: size of chromosomes
+    int parent1[], parent2[]: the parent chromosomes
+    int child1[], child2[]: the child chromosomes that will be born
+    int m: size of chromosomes
 
 Implements the single point crossover. The children are stored
 in the arguments child1 and child2.
+
+Point of crossover is (int)m/2 index.
 
 */
 void do_crossover_single_point(int parent1[], int parent2[], int child1[], int child2[], int m){
@@ -94,10 +97,10 @@ void random_draw(int choices[], int draw_size, int size){
 
 /*
 Args:
-    int[] fitness: the fitness array
+    int[] fitness: array containing the fitness values of the population
     int m: is size of fitness array
 
-Performs the roulette test and returns the chosen chromosome index
+Performs the roulette test and returns the chosen chromosome index (number from 0 to m)
 
 */
 int roulette(int fitness[], int m){
@@ -131,7 +134,7 @@ int roulette(int fitness[], int m){
 
 
 /*
-Generates random number from 0 to 'size' by using roulette.
+Generates random numbers from 0 to 'size' by using roulette.
 These numbers are all unique and passed to the argument 'choices[]'
 
 draw_size: number of random numbers that will be generated
@@ -156,23 +159,33 @@ void random_draw_with_roulette(int choices[], int draw_size, int size, int fitne
     }
 }
 
-bool check_if_population_converges(int fitness[], int size){
+/*
+Args:
+    int fitness[]: array containing the fitness values of the population
+    int size: the population size (= length of fitness)
 
-    unordered_map<int, int> count; //works like Hash table
+    Returns true if the population converges
+
+*/
+bool check_if_population_converges(int fitness[], int size){
+    // This function must count the duplicates of array fitness.
+    // It does so by incrementing every element of fitness to an unordered_map.
+    // This way the unordered_map contains the count of each encountered number.
+    unordered_map<int, int> count;
 
     for (int i = 0; i < size ; i++){
         count[fitness[i]]++;
     }
 
+    // A population converges when 95% of chromosome have the same fitness
     int number = round(size * 0.95);
 
-    // Loop through the unordered map
+    // Loop through the unordered map to check
     for (auto x : count){
         if(x.second >= number)
             return true;
     }
     return false;
-
 }
 
 /*
@@ -185,7 +198,7 @@ Args:
     int solution[]: array to write the solution (the fitest chromosome)
 
 
-Creates a random initial population and executes the main loop.
+Creates a random initial population and executes the main loop of the Genetic Algorithm.
 Returns 'true' if solution was found.
 
 */
@@ -238,9 +251,8 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
             P[i][j] = rand() % 4;
         }
 
-        // calculate "fitness"
+        // calculate fitness foreach chromosome
         fitness[i] = g.countValidEdges(P[i]);
-
 
         //cout << i << " : ";
         // print the color sequence
@@ -252,7 +264,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     // main loop
     for(int k = 0; k < limit; k++){
 
-        // check for solution
+        // check if there is a solution in the population
         for (int i = 0; i < population_size; i++){
 
             if(fitness[i] == edges){
