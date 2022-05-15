@@ -156,7 +156,7 @@ void random_draw_with_roulette(int choices[], int draw_size, int size, int fitne
     }
 }
 
-void check_if_population_converges(int fitness[], int size){
+bool check_if_population_converges(int fitness[], int size){
 
     unordered_map<int, int> count; //works like Hash table
 
@@ -168,11 +168,10 @@ void check_if_population_converges(int fitness[], int size){
 
     // Loop through the unordered map
     for (auto x : count){
-        //cout << x.first << " " << x.second << endl;
         if(x.second >= number)
-            cout<<"converges"<<endl;
+            return true;
     }
-      
+    return false;
 
 }
 
@@ -273,7 +272,11 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
         }
 
         //check if population converges
-        check_if_population_converges(fitness,population_size);
+        if(check_if_population_converges(fitness,population_size)){
+            cout << "The population converges before a solution could be found."<<endl;
+            cout << "Aborting on iteration k = " << k <<endl;
+            return false;
+        }
 
         //population_keep
 
