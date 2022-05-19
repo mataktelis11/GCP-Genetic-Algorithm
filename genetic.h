@@ -17,8 +17,7 @@ Compare 2 the given float numbers. This is done by using a small 'epsilon' value
 (The '==' shouldn't be used when comparing floats. Source: https://noobtuts.com/cpp/compare-float-values)
 
 */
-bool cmpfloats(float a, float b, float epsilon = 0.005f)
-{
+bool cmpfloats(float a, float b, float epsilon = 0.005f){
     return (fabs(a - b) < epsilon);
 }
 
@@ -35,7 +34,6 @@ void print_chromosome(int P[],int chromosome_size){
     for (int i = 1; i <= chromosome_size ; i++){
         cout << P[i] << " ";
     }
-    //printf("\n");
 }
 
 
@@ -44,16 +42,20 @@ Args:
     int parent1[], parent2[]: the parent chromosomes
     int child1[], child2[]: the child chromosomes that will be born
     int m: size of chromosomes
+    bool random: indicates if the point of cross over will be in the middle or random
 
 Implements the single point crossover. The children are stored
 in the arguments child1 and child2.
 
-Point of crossover is (int)m/2 index.
-
 */
-void do_crossover_single_point(int parent1[], int parent2[], int child1[], int child2[], int m){
+void do_crossover_single_point(int parent1[], int parent2[], int child1[], int child2[], int m, bool random){
 
-    int n = m/2;
+    int n; // index point of cross over
+
+    if(!random)
+        n = m/2;        // cross over in the middle
+    else
+        n = rand() % m; // cross over random
 
     for (int i = 1; i <= n; i++){
         child1[i] = parent1[i];
@@ -164,8 +166,8 @@ Args:
 
 */
 bool check_if_population_converges(int fitness[], int population_size){
-    // This function must count the duplicates of array fitness.
-    // It does so by incrementing every element of fitness to an unordered_map.
+    // This function must count the duplicates of array 'fitness'.
+    // It does so by incrementing every element of 'fitness' to an unordered_map.
     // This way the unordered_map contains the count of each encountered number.
     unordered_map<int, int> counts;
 
@@ -189,16 +191,17 @@ bool check_if_population_converges(int fitness[], int population_size){
 Args:
     Graph g: graph object to solve the Graph Coloring Problem
     int population_size: the size of the population
-    int limit: the maximum number of iterations the algorithm is allowed to do
+    int generations_limit: the maximum number of iterations the algorithm is allowed to do
     float mutation_per: the mutation percentage
     float renew_per: the renew percentage
-    int solution[]: array to write the solution (the fitest chromosome)
+    int solution[]: array to write the solution (the fittest chromosome)
+    bool random_cross_over: indicates if the point of cross over will be in the middle or random
 
 Creates a random initial population and executes the main loop of the Genetic Algorithm.
 Returns 'true' if solution was found.
 
 */
-bool run(Graph g, int population_size, int limit, float mutation_per, float renew_per, int solution[]) {
+bool run(Graph g, int population_size, int generations_limit, float mutation_per, float renew_per, int solution[], bool random_cross_over=false) {
 
     // initialize random seed
     srand (time(NULL));
@@ -258,7 +261,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
     */
 
     // main loop
-    for(int k = 0; k < limit; k++){
+    for(int k = 0; k < generations_limit; k++){
 
         // check if there is a solution in the population
         for (int i = 0; i < population_size; i++){
@@ -324,7 +327,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
             //cout << "Pairing members " << parent1 << " " << parent2 << endl;
 
-            do_crossover_single_point(P[parent1],P[parent2],Ps[index],Ps[index+1],chromosome_size);
+            do_crossover_single_point(P[parent1],P[parent2],Ps[index],Ps[index+1],chromosome_size,random_cross_over);
 
             index += 2;
         }
@@ -367,7 +370,7 @@ bool run(Graph g, int population_size, int limit, float mutation_per, float rene
 
     }
 
-    cout << "Algorithm exeded the maximum number of iterations and solution was NOT found." << endl;
+    cout << "Algorithm reached the maximum number of iterations and solution was NOT found." << endl;
     cout << "Aborting . . ." << endl;
     return false;
 }

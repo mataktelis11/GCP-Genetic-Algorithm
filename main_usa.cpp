@@ -148,7 +148,7 @@ int main(int argc, char* argv[]){
     // (first element is dummy)
     int solution[size+1];
 
-    bool check = run(g, 600, 5000, 0.03, 0.7, solution); 
+    bool check = run(g, 2000, 1000, 0.015, 1, solution, true); 
 
     if(check){
 
