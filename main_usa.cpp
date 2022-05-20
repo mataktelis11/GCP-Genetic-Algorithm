@@ -153,13 +153,12 @@ int main(int argc, char* argv[]){
     if(check){
 
         // create command
-        string command = "P='";
+        string command = PYTHONCALL + " python_scripts/usa_draw.py ";
 
         for(int xi = 1; xi <= size; xi++ ){
             command += to_string(solution[xi]);
             command += " ";
         }
-        command+="' " + PYTHONCALL + " python_scripts/usa_draw.py";
 
         cout <<"Will run the following command to display graph:"<<endl;
         cout<< command << endl;

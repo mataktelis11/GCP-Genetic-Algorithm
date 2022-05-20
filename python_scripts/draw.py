@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw
 import matplotlib.pyplot as plt
-import os
+import sys
 
 '''
 COLOR       code    rgb value
@@ -30,9 +30,11 @@ coors ='''196,23
 312,364
 380,432'''
 
-arg = os.getenv('P')
-
-args = arg.split(" ")
+# sys.argv will contain the file name and the numbers
+# e.g. argv = ['python_scripts/draw.py', '0', '3', . . ., '2']
+args = sys.argv
+# remove file name
+args.pop(0)
 
 img = Image.open(R"python_scripts/map.png")
 
