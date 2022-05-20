@@ -141,8 +141,9 @@ int main(int argc, char* argv[]){
     g.addEdge(42,48);
     g.addEdge(44,46);
 
-    cout << "Adjacency List of the graph is:" << endl;
-    g.printGraph();
+    //cout << "Adjacency List of the graph is:" << endl;
+    //g.printGraph();
+    cout <<"USA map graph loaded."<< endl;
 
     // initialize chromosome that will have the solution
     // (first element is dummy)
