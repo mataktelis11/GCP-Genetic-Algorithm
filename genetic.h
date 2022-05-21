@@ -228,7 +228,7 @@ bool run(Graph g, int population_size, int generations_limit, float mutation_per
     float population_pair_f = (renew_per * (float)population_size) / 2;
 
     if (cmpfloats(population_keep_f,floor(population_keep_f)) && cmpfloats(population_pair_f,floor(population_pair_f))){
-        cout << "Given arguments are valid are valid." << endl;
+        cout << "Given arguments are valid." << endl;
     }
     else {
         cout << "Argument renew_per is NOT valid. Please use different arguments." << endl;
