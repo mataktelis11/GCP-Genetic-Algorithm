@@ -25,10 +25,13 @@ $ ./a.out
 ```
 and you should see the following output
 
+![sc1](https://user-images.githubusercontent.com/61196956/192589044-03940c73-157e-4a0d-a8ea-d9c82bb84a27.png)
+
 
 
 the algorithm found a solution and called a python script to display it:
 
+![sc2](https://user-images.githubusercontent.com/61196956/192589099-2ee694cd-56c5-4034-87bc-5dd99ec857ad.png)
 
 
 You can edit the **main.cpp** file to define any graph you want.
@@ -41,10 +44,12 @@ $ ./a.out
 ```
 you should see the following output
 
+![sc3](https://user-images.githubusercontent.com/61196956/192589123-7b8b8221-a222-40b7-9139-63b341511ba0.png)
 
 
 once again a python script will be called to display the solution
 
+![sc4](https://user-images.githubusercontent.com/61196956/192589132-db474bf0-adac-4c39-8e39-8647302e5c67.png)
 
 
 
